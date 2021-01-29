@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{5F1EB34A-AEDB-4346-82FA-E42615303A9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1BA59A87-4E9A-4831-A7B3-95E84D634526}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IServices", "IServices", "{1D41D7DB-AC93-470D-9343-82B64D87595B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{008B8D87-4B7C-475C-9440-7B4F18F806DD}"
+	ProjectSection(SolutionItems) = preProject
+		Message.cs = Message.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Training.API", "Training.API", "{DC5378CA-379F-4315-8B2B-1F83AC898524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.API.Core", "Training.API.Core\Training.API.Core.csproj", "{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F1EB34A-AEDB-4346-82FA-E42615303A9E} = {DC5378CA-379F-4315-8B2B-1F83AC898524}
+		{1BA59A87-4E9A-4831-A7B3-95E84D634526} = {DC5378CA-379F-4315-8B2B-1F83AC898524}
+		{1D41D7DB-AC93-470D-9343-82B64D87595B} = {DC5378CA-379F-4315-8B2B-1F83AC898524}
+		{008B8D87-4B7C-475C-9440-7B4F18F806DD} = {DC5378CA-379F-4315-8B2B-1F83AC898524}
+		{45D9135A-710B-4DCA-95F3-C00C1EF2AEAF} = {DC5378CA-379F-4315-8B2B-1F83AC898524}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {160F9532-0FA4-4FFC-88D6-BAF927CE369B}
+	EndGlobalSection
+EndGlobal
