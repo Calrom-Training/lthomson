@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication1": {
+    "Training.Api.Core": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
