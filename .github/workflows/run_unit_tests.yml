@@ -1,7 +1,9 @@
-on:
+on: 
+  workflow_dispatch:
   pull_request:
     branches:
     - main
+    
 jobs:
   unit_tests:
       name: dotnet-tests-report
