@@ -1,0 +1,13 @@
+on:
+  pull_request:
+    branches:
+    - main
+jobs:
+  unit_tests:
+      name: dotnet-tests-report
+      runs-on: ubuntu-18.04
+      steps:
+        - uses: zyborg/dotnet-tests-report@v1.3.0
+          with:
+            msbuild_verbosity: 'n'
+            set_check_status_from_test_outcome: 'true'
