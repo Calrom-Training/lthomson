@@ -15,7 +15,7 @@ jobs:
         - uses: zyborg/dotnet-tests-report@v1.3.0
           with:
             msbuild_verbosity: 'n'
-            set_check_status_from_test_outcome: 'true'
+            set_check_status_from_test_outcome: true
             project_path: Training.API.Core.Tests
             report_name: unit_tests
             report_title: Unit Tests
