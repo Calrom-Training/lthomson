@@ -10,7 +10,7 @@ namespace Training.API.Core.UnitTests
     using Training.API.Core.Controllers;
     using Training.API.Core.IServices;
 
-    /// <summary>Collection of user tests.</summary>
+    /// <summary>Collection of user controller tests.</summary>
     public class UserControllerTests
     {
         /// <summary>The user name parameter.</summary>

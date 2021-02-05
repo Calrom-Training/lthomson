@@ -142,14 +142,14 @@
       "Training.API.Core.Models.Message": {
         "System.Void Training.API.Core.Models.Message::.ctor(System.Guid,System.String,System.DateTime,System.String,System.String)": {
           "Lines": {
-            "35": 0,
-            "36": 0,
-            "37": 0,
-            "38": 0,
-            "39": 0,
-            "40": 0,
-            "41": 0,
-            "42": 0
+            "35": 4,
+            "36": 4,
+            "37": 4,
+            "38": 4,
+            "39": 4,
+            "40": 4,
+            "41": 4,
+            "42": 4
           },
           "Branches": []
         }
@@ -250,20 +250,46 @@
     },
     "C:\\GitHub Repos\\calrom-training\\lthomson\\calrom-project\\TrainingAPI\\Training.API.Core\\Controllers\\MessagesController.cs": {
       "Training.API.Core.Controllers.MessagesController": {
-        "System.Collections.Generic.List`1<Training.API.Core.Models.Message> Training.API.Core.Controllers.MessagesController::GetMessages(System.String)": {
+        "Microsoft.AspNetCore.Mvc.IActionResult Training.API.Core.Controllers.MessagesController::GetMessages(System.String)": {
           "Lines": {
-            "32": 0,
-            "33": 0,
-            "34": 0
+            "31": 4,
+            "33": 4,
+            "34": 4,
+            "35": 3,
+            "36": 2,
+            "37": 2,
+            "40": 1,
+            "41": 1,
+            "44": 1,
+            "45": 1,
+            "46": 1,
+            "48": 4
           },
-          "Branches": []
+          "Branches": [
+            {
+              "Line": 35,
+              "Offset": 21,
+              "EndOffset": 23,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            },
+            {
+              "Line": 35,
+              "Offset": 21,
+              "EndOffset": 34,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
         },
         "System.Void Training.API.Core.Controllers.MessagesController::.ctor(Training.API.Core.IServices.IMessagingService)": {
           "Lines": {
-            "22": 0,
-            "23": 0,
-            "24": 0,
-            "25": 0
+            "21": 4,
+            "22": 4,
+            "23": 4,
+            "24": 4
           },
           "Branches": []
         }
