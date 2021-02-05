@@ -3,6 +3,7 @@
 // </copyright>
 namespace Training.API.Core.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using Training.API.Core.IServices;
 
@@ -32,9 +33,23 @@ namespace Training.API.Core.Controllers
         ///   True, if login is sucessful. False, otherwise.
         /// </returns>
         [HttpPost("login")]
-        public bool LoginRequest(string username, string password)
+        public IActionResult LoginRequest(string username, string password)
         {
-            return this.loginService.Login(username, password);
+            try
+            {
+                if (this.loginService.Login(username, password))
+                {
+                    return this.Ok();
+                }
+                else
+                {
+                    return this.Forbid();
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(500, $"The following error has occured: {ex.Message}");
+            }
         }
 
         /// <summary>Changes the password.</summary>
