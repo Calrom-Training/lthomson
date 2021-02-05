@@ -58,9 +58,23 @@ namespace Training.API.Core.Controllers
         /// <param name="newPassword">The new password.</param>
         /// <returns>True, on success. False, otherwise.</returns>
         [HttpPost("changepassword")]
-        public bool ChangePassword(string username, string currentPassword, string newPassword)
+        public IActionResult ChangePassword(string username, string currentPassword, string newPassword)
         {
-            return this.passwordService.ChangePassword(username, currentPassword, newPassword);
+            try
+            {
+                if (this.passwordService.ChangePassword(username, currentPassword, newPassword))
+                {
+                    return this.Ok();
+                }
+                else
+                {
+                    return this.Forbid();
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(500, $"The following error has occured: {ex.Message}");
+            }
         }
     }
 }
