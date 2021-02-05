@@ -3,10 +3,9 @@
 // </copyright>
 namespace Training.API.Core.Controllers
 {
-    using System.Collections.Generic;
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using Training.API.Core.IServices;
-    using Training.API.Core.Models;
 
     /// <summary>
     ///   The messages controller.
@@ -28,9 +27,24 @@ namespace Training.API.Core.Controllers
         /// <param name="username">The username.</param>
         /// <returns>List of messages for the user.</returns>
         [HttpGet("{username}")]
-        public List<Message> GetMessages(string username)
+        public IActionResult GetMessages(string username)
         {
-            return this.messageService.GetMessages(username);
+            try
+            {
+                var response = this.messageService.GetMessages(username);
+                if (response != null)
+                {
+                    return this.Ok(response);
+                }
+                else
+                {
+                    return this.NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(500, $"The following error has occured: {ex.Message}");
+            }
         }
     }
 }
