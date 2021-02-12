@@ -15,9 +15,6 @@ namespace Training.API.Core.UnitTests
     /// <summary>Collection of user controller tests.</summary>
     public class MessagesControllerTests
     {
-        /// <summary>The user name parameter.</summary>
-        private const string UserNameParam = "username";
-
         /// <summary>The test username.</summary>
         private string testUsername;
 
@@ -34,10 +31,10 @@ namespace Training.API.Core.UnitTests
             this.mockMessagingService = new Mock<IMessagingService>();
             this.testMessages.Add(new Message(
                     Guid.NewGuid(),
-                    "Rick Roll'd",
+                    "Test",
                     DateTime.Now,
-                    "Never gonna give you up, never gonna let you down.",
-                    "Rick Astley"));
+                    "This is a test message.",
+                    "Toby Test"));
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
