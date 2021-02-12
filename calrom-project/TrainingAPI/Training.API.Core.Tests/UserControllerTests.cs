@@ -8,33 +8,30 @@ namespace Training.API.Core.UnitTests
     using Moq;
     using NUnit.Framework;
     using Training.API.Core.Controllers;
+    using Training.API.Core.DataContracts;
     using Training.API.Core.IServices;
 
     /// <summary>Collection of user controller tests.</summary>
     public class UserControllerTests
     {
-        /// <summary>The user name parameter.</summary>
         private const string UserNameParam = "username";
 
-        /// <summary>The password parameter.</summary>
         private const string PasswordParam = "password";
 
-        /// <summary>The new password parameter.</summary>
         private const string NewPasswordParam = "newPassword";
 
-        /// <summary>The test username.</summary>
+        private ChangePasswordRequest changePasswordRequest;
+
+        private LoginRequest loginRequest;
+
         private string testUsername;
 
-        /// <summary>The test password.</summary>
         private string testPassword;
 
-        /// <summary>The new password.</summary>
         private string newPassword;
 
-        /// <summary>The mock login service.</summary>
         private Mock<ILoginService> mockLoginService;
 
-        /// <summary>The mock password service.</summary>
         private Mock<IPasswordService> mockPasswordService;
 
         /// <summary>Setup before test execution.</summary>
@@ -53,11 +50,12 @@ namespace Training.API.Core.UnitTests
         public void LoginWithValidCredentialsTest()
         {
             //// Arrange
+            this.loginRequest = new LoginRequest(this.testUsername, this.testPassword);
             this.mockLoginService.Setup(loginService => loginService.Login(this.testUsername, this.testPassword)).Returns(true).Verifiable();
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.LoginRequest(this.testUsername, this.testPassword) as OkResult;
+            var result = sut.LoginRequest(this.loginRequest) as OkResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -70,11 +68,12 @@ namespace Training.API.Core.UnitTests
         public void LoginWithInvalidCredentialsTest()
         {
             //// Arrange
+            this.loginRequest = new LoginRequest(this.testUsername, this.testPassword);
             this.mockLoginService.Setup(loginService => loginService.Login(this.testUsername, this.testPassword)).Returns(false).Verifiable();
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.LoginRequest(this.testUsername, this.testPassword) as ForbidResult;
+            var result = sut.LoginRequest(this.loginRequest) as ForbidResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -99,11 +98,12 @@ namespace Training.API.Core.UnitTests
                     break;
             }
 
+            this.loginRequest = new LoginRequest(this.testUsername, this.testPassword);
             this.mockLoginService.Setup(loginService => loginService.Login(this.testUsername, this.testPassword)).Throws(new ArgumentNullException());
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.LoginRequest(this.testUsername, this.testPassword) as ObjectResult;
+            var result = sut.LoginRequest(this.loginRequest) as ObjectResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -116,11 +116,12 @@ namespace Training.API.Core.UnitTests
         public void ChangePasswordWithCorrectPassword()
         {
             //// Arrange
+            this.changePasswordRequest = new ChangePasswordRequest(this.testUsername, this.testPassword, this.newPassword);
             this.mockPasswordService.Setup(passwordService => passwordService.ChangePassword(this.testUsername, this.testPassword, this.newPassword)).Returns(true).Verifiable();
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword) as OkResult;
+            var result = sut.ChangePassword(this.changePasswordRequest) as OkResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -133,11 +134,12 @@ namespace Training.API.Core.UnitTests
         public void ChangePasswordWithInorrectPassword()
         {
             //// Arrange
+            this.changePasswordRequest = new ChangePasswordRequest(this.testUsername, this.testPassword, this.newPassword);
             this.mockPasswordService.Setup(passwordService => passwordService.ChangePassword(this.testUsername, this.testPassword, this.newPassword)).Returns(false).Verifiable();
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword) as ForbidResult;
+            var result = sut.ChangePassword(this.changePasswordRequest) as ForbidResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -166,11 +168,12 @@ namespace Training.API.Core.UnitTests
             }
 
             //// Arrange
+            this.changePasswordRequest = new ChangePasswordRequest(this.testUsername, this.testPassword, this.newPassword);
             this.mockPasswordService.Setup(passwordService => passwordService.ChangePassword(this.testUsername, this.testPassword, this.newPassword)).Throws(new ArgumentNullException()).Verifiable();
             var sut = new UserController(this.mockLoginService.Object, this.mockPasswordService.Object);
 
             //// Act
-            var result = sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword) as ObjectResult;
+            var result = sut.ChangePassword(this.changePasswordRequest) as ObjectResult;
 
             //// Assert
             Assert.IsNotNull(result);

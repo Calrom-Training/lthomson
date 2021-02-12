@@ -61,14 +61,14 @@ namespace Training.API.Core.UnitTests
         public void NoMessagesForUserTest()
         {
             //// Arrange
-            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns(new List<Message>()).Verifiable();
+            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns((List<Message>) null).Verifiable();
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
             var result = sut.GetMessages(this.testUsername) as OkObjectResult;
 
             //// Assert
-            Assert.IsNotNull(result);
+            Assert.IsNull(result.Value);
             Assert.AreEqual(200, result.StatusCode);
         }
 

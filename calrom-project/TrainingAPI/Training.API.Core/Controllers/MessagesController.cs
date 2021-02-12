@@ -32,14 +32,7 @@ namespace Training.API.Core.Controllers
             try
             {
                 var response = this.messageService.GetMessages(username);
-                if (response != null)
-                {
-                    return this.Ok(response);
-                }
-                else
-                {
-                    return this.NotFound();
-                }
+                return this.Ok(response);
             }
             catch (Exception ex)
             {

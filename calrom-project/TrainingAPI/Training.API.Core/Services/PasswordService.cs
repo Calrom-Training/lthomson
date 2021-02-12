@@ -3,6 +3,7 @@
 // </copyright>
 namespace Training.API.Core.Services
 {
+    using System;
     using Training.API.Core.IServices;
 
     /// <summary>
@@ -17,15 +18,7 @@ namespace Training.API.Core.Services
         /// <returns>True if sucessful, false otherwise.</returns>
         public bool ChangePassword(string username, string currentPassword, string newPassword)
         {
-            if (username == "test" && currentPassword == "123456")
-            {
-                // no implementation for actually changing password yet
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            throw new NotImplementedException();
         }
     }
 }
