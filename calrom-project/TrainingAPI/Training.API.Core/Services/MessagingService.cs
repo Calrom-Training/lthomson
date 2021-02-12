@@ -18,19 +18,7 @@ namespace Training.API.Core.Services
         /// <returns>A list of messages for the user.</returns>
         public List<Message> GetMessages(string username)
         {
-            var messages = new List<Message>();
-            var testMessage = new Message(
-                    Guid.NewGuid(),
-                    "Rick Roll'd",
-                    DateTime.Now,
-                    "Never gonna give you up, never gonna let you down.",
-                    "Rick Astley");
-            if (username == "rickastley")
-            {
-                messages.Add(testMessage);
-            }
-
-            return messages;
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Training.API.Core.Controllers
 {
     using System;
     using Microsoft.AspNetCore.Mvc;
+    using Training.API.Core.DataContracts;
     using Training.API.Core.IServices;
 
     /// <summary>
@@ -27,17 +28,14 @@ namespace Training.API.Core.Controllers
         }
 
         /// <summary>Logins the request.</summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>
-        ///   True, if login is sucessful. False, otherwise.
-        /// </returns>
+        /// <param name="loginRequest">The login request.</param>
+        /// <returns>True, if login is sucessful. False, otherwise.</returns>
         [HttpPost("login")]
-        public IActionResult LoginRequest(string username, string password)
+        public IActionResult LoginRequest([FromBody] LoginRequest loginRequest)
         {
             try
             {
-                if (this.loginService.Login(username, password))
+                if (this.loginService.Login(loginRequest.Username, loginRequest.Password))
                 {
                     return this.Ok();
                 }
@@ -53,16 +51,14 @@ namespace Training.API.Core.Controllers
         }
 
         /// <summary>Changes the password.</summary>
-        /// <param name="username">The username.</param>
-        /// <param name="currentPassword">The current password.</param>
-        /// <param name="newPassword">The new password.</param>
+        /// <param name="changePasswordRequest">The change password request.</param>
         /// <returns>True, on success. False, otherwise.</returns>
         [HttpPost("changepassword")]
-        public IActionResult ChangePassword(string username, string currentPassword, string newPassword)
+        public IActionResult ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
         {
             try
             {
-                if (this.passwordService.ChangePassword(username, currentPassword, newPassword))
+                if (this.passwordService.ChangePassword(changePasswordRequest.Username, changePasswordRequest.Password, changePasswordRequest.NewPassword))
                 {
                     return this.Ok();
                 }

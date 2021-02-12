@@ -3,6 +3,7 @@
 // </copyright>
 namespace Training.API.Core.Services
 {
+    using System;
     using Training.API.Core.IServices;
 
     /// <summary>
@@ -18,14 +19,7 @@ namespace Training.API.Core.Services
         /// </returns>
         public bool Login(string username, string password)
         {
-            if (username == "test" && password == "123456")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            throw new NotImplementedException();
         }
     }
 }
