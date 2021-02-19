@@ -1,0 +1,21 @@
+{
+	"_id": {
+		"$oid": "602fcbb0bb6fd800073bdbd9"
+	},
+	"Username": "Tom",
+	"Password": "bacon123"
+}
+{
+	"_id": {
+		"$oid": "602fcbd8bb6fd800073bdbda"
+	},
+	"Username": "Dick",
+	"Password": "ham123"
+}
+{
+	"_id": {
+		"$oid": "602fd192bb6fd800073bdbdb"
+	},
+	"Username": "Harry",
+	"Password": "mcfc123"
+}

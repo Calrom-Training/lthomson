@@ -1,0 +1,33 @@
+{
+	"_id": {
+		"$oid": "602fd29fbb6fd800073bdbdc"
+	},
+	"messageId": "0cc66d1a-5948-4dc7-9594-456ce37ef07b",
+	"subject": "Hi Dick!",
+	"sentDate": "18-May-2019 19:52",
+	"body": "This is a test message",
+	"sentBy": "Tom",
+	"sentTo": "Dick"
+}
+{
+	"_id": {
+		"$oid": "602fd2bfbb6fd800073bdbdd"
+	},
+	"messageId": "aa7b90b2-ebf3-4004-9564-e6acccae3066",
+	"subject": "Hi Harry!",
+	"sentDate": "18-May-2019 19:54",
+	"body": "This is test message 1.",
+	"sentBy": "Dick",
+	"sentTo": "Harry"
+}
+{
+	"_id": {
+		"$oid": "602fd2cfbb6fd800073bdbde"
+	},
+	"messageId": "6b90686a-3ce4-493b-8942-2a8d78875462",
+	"subject": "Hi Again!",
+	"sentDate": "18-May-2019 19:56",
+	"body": "This is test message 2.",
+	"sentBy": "Dick",
+	"sentTo": "Harry"
+}

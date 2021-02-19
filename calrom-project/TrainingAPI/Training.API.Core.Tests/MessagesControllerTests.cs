@@ -34,7 +34,8 @@ namespace Training.API.Core.UnitTests
                     "Test",
                     DateTime.Now,
                     "This is a test message.",
-                    "Toby Test"));
+                    "Toby Test",
+                    "Harry Test"));
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
