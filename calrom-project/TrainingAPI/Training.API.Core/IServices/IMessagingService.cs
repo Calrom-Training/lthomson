@@ -4,7 +4,7 @@
 namespace Training.API.Core.IServices
 {
     using System.Collections.Generic;
-    using Training.API.Core.Models;
+    using Training.API.DatabaseLibrary.Models;
 
     /// <summary>
     ///  Messaging service interface.

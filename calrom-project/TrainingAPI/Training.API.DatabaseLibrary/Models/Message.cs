@@ -1,7 +1,7 @@
 ﻿// <copyright file="Message.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-namespace Training.API.Core.Models
+namespace Training.API.DatabaseLibrary.Models
 {
     using System;
 
@@ -28,6 +28,7 @@ namespace Training.API.Core.Models
         /// <param name="sentDate">The sent date.</param>
         /// <param name="body">The body.</param>
         /// <param name="sentBy">The sent by.</param>
+        /// <param name="sentTo">The sent to.</param>
         public Message(Guid messageId, string subject, DateTime sentDate, string body, string sentBy, string sentTo)
         {
             this.messageId = messageId;

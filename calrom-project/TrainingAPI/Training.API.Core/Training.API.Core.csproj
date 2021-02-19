@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="packages.config" />
+    <Content Remove="TestUserDb\Users.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,11 @@
 
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestUserDb\Users.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Training.API.DatabaseLibrary\Training.API.DatabaseLibrary.csproj" />
   </ItemGroup>
 
 </Project>

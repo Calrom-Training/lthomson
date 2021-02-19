@@ -26,7 +26,7 @@ namespace Training.API.Core.Controllers
         /// <summary>Gets the messages.</summary>
         /// <param name="username">The username.</param>
         /// <returns>List of messages for the user.</returns>
-        [HttpGet("{username}")]
+        [HttpGet("getMessagesForUser")]
         public IActionResult GetMessages(string username)
         {
             try
