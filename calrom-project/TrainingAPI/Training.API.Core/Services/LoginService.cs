@@ -39,7 +39,15 @@ namespace Training.API.Core.Services
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty");
             }
 
-            return this.databaseContext.CheckUserCredentials(username, password);
+            var user = this.databaseContext.GetUser(username, password);
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Training.API.Core.Init
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Server.IISIntegration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -42,6 +43,7 @@ namespace Training.API.Core.Init
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
             });
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
         }
 
         /// <summary>Configures the specified application.</summary>

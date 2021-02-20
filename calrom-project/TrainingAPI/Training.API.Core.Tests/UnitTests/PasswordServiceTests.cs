@@ -8,6 +8,7 @@ namespace Training.API.Core.UnitTests
     using NUnit.Framework;
     using Training.API.Core.Services;
     using Training.API.DatabaseLibrary;
+    using Training.API.DatabaseLibrary.Models;
 
     /// <summary>Collection of user controller tests.</summary>
     public class PasswordServiceTests
@@ -24,6 +25,8 @@ namespace Training.API.Core.UnitTests
 
         private string newPassword;
 
+        private User testUser;
+
         private Mock<IDatabaseContext> mockDatabaseContext;
 
         /// <summary>Setup before test execution.</summary>
@@ -33,6 +36,7 @@ namespace Training.API.Core.UnitTests
             this.testUsername = "test";
             this.testPassword = "123456";
             this.newPassword = "abcdef";
+            this.testUser = new User(1, this.testUsername, this.testPassword);
             this.mockDatabaseContext = new Mock<IDatabaseContext>();
         }
 
@@ -42,7 +46,8 @@ namespace Training.API.Core.UnitTests
         public void ServiceReturnsTrueForValidCredentials()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(this.testUsername, this.testPassword, this.newPassword)).Returns(true);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns(this.testUser);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(this.testUser, this.newPassword)).Returns(true);
             var sut = new PasswordService(this.mockDatabaseContext.Object);
 
             //// Act
@@ -58,7 +63,9 @@ namespace Training.API.Core.UnitTests
         public void ServiceReturnsFalseForInvalidCredentials()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(this.testUsername, this.testPassword, this.newPassword)).Returns(false);
+            User notFoundUser = (User)null;
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns(notFoundUser);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(notFoundUser, this.newPassword)).Returns(false);
             var sut = new PasswordService(this.mockDatabaseContext.Object);
 
             //// Act

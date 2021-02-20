@@ -43,7 +43,8 @@ namespace Training.API.Core.Services
                 throw new ArgumentException($"'{nameof(newPassword)}' cannot be null or empty", nameof(newPassword));
             }
 
-            return this.databaseContext.ChangePasswordForUser(username, currentPassword, newPassword);
+            var user = this.databaseContext.GetUser(username, currentPassword);
+            return this.databaseContext.ChangePasswordForUser(user, newPassword);
         }
     }
 }

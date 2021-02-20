@@ -27,27 +27,18 @@ namespace Training.API.DatabaseLibrary
             this.mongoUserCollection = this.mongoDatabase.GetCollection<User>(MongoDbConstants.MongoUsersCollection);
         }
 
-        /// <summary>Changes the password for user.</summary>
-        /// <param name="username">The username.</param>
-        /// <param name="currentPassword">The current password.</param>
+        /// <summary>
+        /// Changes the password for user.
+        /// </summary>
+        /// <param name="userToUpdate">The user to update.</param>
         /// <param name="newPassword">The new password.</param>
         /// <returns>
-        ///   <br />
+        /// True if password change was successful, false otherwise.
         /// </returns>
-        public bool ChangePasswordForUser(string username, string currentPassword, string newPassword)
+        public bool ChangePasswordForUser(User userToUpdate, string newPassword)
         {
-            var user = this.mongoUserCollection.Find(MongoDbQueries.FindUser(username));
-            if (user.Any() && user.FirstOrDefault().Password == currentPassword)
-            {
-                var updatedUser = user.FirstOrDefault();
-                updatedUser.Password = newPassword;
-                this.mongoUserCollection.ReplaceOne(MongoDbQueries.FindUser(username), updatedUser);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            userToUpdate.Password = newPassword;
+            return this.mongoUserCollection.ReplaceOne(user => user == userToUpdate, userToUpdate).IsAcknowledged;
         }
 
         /// <summary>Checks the user credentials.</summary>
@@ -56,17 +47,9 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         ///   <br />
         /// </returns>
-        public bool CheckUserCredentials(string username, string password)
+        public User GetUser(string username, string password)
         {
-            var user = this.mongoUserCollection.Find(MongoDbQueries.FindUser(username));
-            if (user.Any() && user.FirstOrDefault().Password == password)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return this.mongoUserCollection.Find(user => user.Username == username && user.Password == password).FirstOrDefault();
         }
 
         /// <summary>Gets the messages for user.</summary>
@@ -76,7 +59,7 @@ namespace Training.API.DatabaseLibrary
         /// </returns>
         public List<Message> GetMessagesForUser(string username)
         {
-            return this.mongoMessageCollection.Find(MongoDbQueries.GetUserMessages(username)).ToList<Message>();
+            return this.mongoMessageCollection.Find(messages => messages.SentTo == username).ToList<Message>();
         }
     }
 }

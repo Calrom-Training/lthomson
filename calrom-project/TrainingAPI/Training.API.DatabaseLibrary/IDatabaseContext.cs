@@ -13,24 +13,23 @@ namespace Training.API.DatabaseLibrary
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <returns>
-        ///   <br />
+        ///   User matching the credentials.
         /// </returns>
-        bool CheckUserCredentials(string username, string password);
+        User GetUser(string username, string password);
 
         /// <summary>Gets the messages for user.</summary>
         /// <param name="username">The username.</param>
         /// <returns>
-        ///   <br />
+        ///   List of messages for the user.
         /// </returns>
         List<Message> GetMessagesForUser(string username);
 
         /// <summary>Changes the password for user.</summary>
-        /// <param name="username">The username.</param>
-        /// <param name="currentPassword">The current password.</param>
+        /// <param name="user">The user.</param>
         /// <param name="newPassword">The new password.</param>
         /// <returns>
-        ///   <br />
+        ///   True if password was changed succesfully, false otherwise.
         /// </returns>
-        bool ChangePasswordForUser(string username, string currentPassword, string newPassword);
+        bool ChangePasswordForUser(User user, string newPassword);
     }
 }
