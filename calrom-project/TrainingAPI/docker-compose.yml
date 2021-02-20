@@ -28,3 +28,6 @@ services:
     ports:
       - 44327:80
     container_name: training_api
+networks:
+    default:
+        name: training_default
