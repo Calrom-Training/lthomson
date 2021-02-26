@@ -5,12 +5,14 @@ namespace Training.API.Core.Init
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Server.IISIntegration;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Training.API.Core.IServices;
     using Training.API.Core.Services;
+    using Training.API.DatabaseLibrary;
 
     /// <summary>
     ///   <para>The start up class.</para>
@@ -32,6 +34,7 @@ namespace Training.API.Core.Init
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IDatabaseContext, MongoDbContext>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddSingleton<IMessagingService, MessagingService>();
             services.AddSingleton<IPasswordService, PasswordService>();
@@ -40,6 +43,7 @@ namespace Training.API.Core.Init
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
             });
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
         }
 
         /// <summary>Configures the specified application.</summary>

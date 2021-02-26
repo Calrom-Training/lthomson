@@ -1,0 +1,24 @@
+{
+	"_id": "0cc66d1a-5948-4dc7-9594-456ce37ef07b",
+	"subject": "Hi Dick!",
+	"sentDate": "2021-01-15T00:00:00Z",
+	"body": "This is a test message",
+	"sentBy": "Tom",
+	"sentTo": "Dick"
+}
+{
+	"_id": "aa7b90b2-ebf3-4004-9564-e6acccae3066",
+	"subject": "Hi Harry!",
+	"sentDate": "2021-01-16T00:00:00Z",
+	"body": "This is test message 1.",
+	"sentBy": "Dick",
+	"sentTo": "Harry"
+}
+{
+	"_id": "6b90686a-3ce4-493b-8942-2a8d78875462",
+	"subject": "Hi Again!",
+	"sentDate": "2021-01-17T00:00:00Z",
+	"body": "This is test message 2.",
+	"sentBy": "Dick",
+	"sentTo": "Harry"
+}

@@ -10,17 +10,15 @@ namespace Training.API.Core.UnitTests
     using NUnit.Framework;
     using Training.API.Core.Controllers;
     using Training.API.Core.IServices;
-    using Training.API.Core.Models;
+    using Training.API.DatabaseLibrary.Models;
 
     /// <summary>Collection of user controller tests.</summary>
     public class MessagesControllerTests
     {
-        /// <summary>The test username.</summary>
+        private readonly List<Message> testMessages = new List<Message>();
+
         private string testUsername;
 
-        private List<Message> testMessages = new List<Message>();
-
-        /// <summary>The mock login service.</summary>
         private Mock<IMessagingService> mockMessagingService;
 
         /// <summary>Setup before test execution.</summary>
@@ -34,7 +32,8 @@ namespace Training.API.Core.UnitTests
                     "Test",
                     DateTime.Now,
                     "This is a test message.",
-                    "Toby Test"));
+                    "Toby Test",
+                    "Harry Test"));
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
@@ -61,7 +60,7 @@ namespace Training.API.Core.UnitTests
         public void NoMessagesForUserTest()
         {
             //// Arrange
-            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns((List<Message>) null).Verifiable();
+            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns((List<Message>)null).Verifiable();
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
@@ -100,11 +99,11 @@ namespace Training.API.Core.UnitTests
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername) as NotFoundResult;
+            var result = sut.GetMessages(this.testUsername) as OkObjectResult;
 
             //// Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(404, result.StatusCode);
+            Assert.AreEqual(200, result.StatusCode);
         }
 
         /// <summary>Post execution assertions common to all tests.</summary>

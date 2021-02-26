@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Training.API.DatabaseLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:Training.API.DatabaseLibrary.IDatabaseContext">
+            <summary>Database context interface.</summary>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.IDatabaseContext.GetUser(System.String,System.String)">
+            <summary>Checks the user credentials.</summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <returns>
+              User matching the credentials.
+            </returns>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.IDatabaseContext.GetMessagesForUser(System.String)">
+            <summary>Gets the messages for user.</summary>
+            <param name="username">The username.</param>
+            <returns>
+              List of messages for the user.
+            </returns>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.IDatabaseContext.ChangePasswordForUser(Training.API.DatabaseLibrary.Models.User,System.String)">
+            <summary>Changes the password for user.</summary>
+            <param name="user">The user.</param>
+            <param name="newPassword">The new password.</param>
+            <returns>
+              True if password was changed succesfully, false otherwise.
+            </returns>
+        </member>
+        <member name="T:Training.API.DatabaseLibrary.Models.Message">
+            <summary>
+             Messages data model.
+            </summary>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.Models.Message.#ctor(System.Guid,System.String,System.DateTime,System.String,System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Training.API.DatabaseLibrary.Models.Message" /> class.</summary>
+            <param name="messageId">The message identifier.</param>
+            <param name="subject">The subject.</param>
+            <param name="sentDate">The sent date.</param>
+            <param name="body">The body.</param>
+            <param name="sentBy">The sent by.</param>
+            <param name="sentTo">The sent to.</param>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.MessageId">
+            <summary>Gets or sets the message identifier.</summary>
+            <value>The message identifier.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.Subject">
+            <summary>Gets or sets the subject.</summary>
+            <value>The subject.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.SentDate">
+            <summary>Gets or sets the sent date.</summary>
+            <value>The sent date.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.Body">
+            <summary>Gets or sets the body.</summary>
+            <value>The body.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.SentBy">
+            <summary>Gets or sets the sent by.</summary>
+            <value>The sent by.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.Message.SentTo">
+            <summary>Gets or sets the sent to.</summary>
+            <value>The sent to.</value>
+        </member>
+        <member name="T:Training.API.DatabaseLibrary.Models.User">
+            <summary>The user data model.</summary>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.Models.User.#ctor(System.Int32,System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Training.API.DatabaseLibrary.Models.User" /> class.</summary>
+            <param name="userId">The user identifier.</param>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.User.UserId">
+            <summary>Gets or sets the user identifier.</summary>
+            <value>The user identifier.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.User.Username">
+            <summary>Gets or sets the username.</summary>
+            <value>The username.</value>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.Models.User.Password">
+            <summary>Gets or sets the password.</summary>
+            <value>The password.</value>
+        </member>
+        <member name="T:Training.API.DatabaseLibrary.MongoDbConstants">
+            <summary>Mongo Db Constants.</summary>
+        </member>
+        <member name="F:Training.API.DatabaseLibrary.MongoDbConstants.TestMongoDb">
+            <summary>The test mongo database.</summary>
+        </member>
+        <member name="F:Training.API.DatabaseLibrary.MongoDbConstants.MongoMessagesCollection">
+            <summary>The mongo messages collection.</summary>
+        </member>
+        <member name="F:Training.API.DatabaseLibrary.MongoDbConstants.MongoUsersCollection">
+            <summary>The mongo users collection.</summary>
+        </member>
+        <member name="P:Training.API.DatabaseLibrary.MongoDbConstants.MongoDbConnectionString">
+            <summary>Gets or sets the mongo database connection string.</summary>
+        </member>
+        <member name="T:Training.API.DatabaseLibrary.MongoDbContext">
+            <summary>The mongo database context.</summary>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.MongoDbContext.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Training.API.DatabaseLibrary.MongoDbContext" /> class.</summary>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.MongoDbContext.ChangePasswordForUser(Training.API.DatabaseLibrary.Models.User,System.String)">
+            <summary>
+            Changes the password for user.
+            </summary>
+            <param name="userToUpdate">The user to update.</param>
+            <param name="newPassword">The new password.</param>
+            <returns>
+            True if password change was successful, false otherwise.
+            </returns>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.MongoDbContext.GetUser(System.String,System.String)">
+            <summary>Checks the user credentials.</summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+            <returns>
+              <br />
+            </returns>
+        </member>
+        <member name="M:Training.API.DatabaseLibrary.MongoDbContext.GetMessagesForUser(System.String)">
+            <summary>Gets the messages for user.</summary>
+            <param name="username">The username.</param>
+            <returns>
+              <br />
+            </returns>
+        </member>
+    </members>
+</doc>

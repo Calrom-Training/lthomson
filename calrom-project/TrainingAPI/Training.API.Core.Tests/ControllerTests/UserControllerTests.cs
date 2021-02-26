@@ -152,7 +152,7 @@ namespace Training.API.Core.UnitTests
         [TestCase(PasswordParam)]
         [TestCase(NewPasswordParam)]
         [Category("MockTest")]
-        public void ChangePasswordWithCorrectPassword(string nameOfEmptyParameter)
+        public void ChangePasswordWithEmptyParameters(string nameOfEmptyParameter)
         {
             switch (nameOfEmptyParameter)
             {
