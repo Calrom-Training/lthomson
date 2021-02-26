@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\GitHub Repos\calrom-training\lthomson\calrom-project\TrainingAPI\Training.API.DatabaseLibrary\Training.API.DatabaseLibrary.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

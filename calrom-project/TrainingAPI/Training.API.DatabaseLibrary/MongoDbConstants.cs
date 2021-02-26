@@ -15,7 +15,13 @@ namespace Training.API.DatabaseLibrary
         /// <summary>The mongo users collection.</summary>
         public const string MongoUsersCollection = "Users";
 
-        /// <summary>The mongo database connection string.</summary>
-        public static string MongoDbConnectionString = $"mongodb://training_mongo:27017/{TestMongoDb}";
+        private static string mongoDbConnectionString = $"mongodb://training_mongo:27017/{TestMongoDb}";
+
+        /// <summary>Gets or sets the mongo database connection string.</summary>
+        public static string MongoDbConnectionString
+        {
+            get { return mongoDbConnectionString; }
+            set { mongoDbConnectionString = value; }
+        }
     }
 }
