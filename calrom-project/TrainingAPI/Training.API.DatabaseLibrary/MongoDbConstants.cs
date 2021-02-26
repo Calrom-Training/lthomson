@@ -16,6 +16,6 @@ namespace Training.API.DatabaseLibrary
         public const string MongoUsersCollection = "Users";
 
         /// <summary>The mongo database connection string.</summary>
-        public static readonly string MongoDbConnectionString = $"mongodb://training_mongo:27017/{TestMongoDb}";
+        public static string MongoDbConnectionString = $"mongodb://training_mongo:27017/{TestMongoDb}";
     }
 }

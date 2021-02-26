@@ -15,12 +15,10 @@ namespace Training.API.Core.UnitTests
     /// <summary>Collection of user controller tests.</summary>
     public class MessagesControllerTests
     {
-        /// <summary>The test username.</summary>
+        private readonly List<Message> testMessages = new List<Message>();
+
         private string testUsername;
 
-        private List<Message> testMessages = new List<Message>();
-
-        /// <summary>The mock login service.</summary>
         private Mock<IMessagingService> mockMessagingService;
 
         /// <summary>Setup before test execution.</summary>

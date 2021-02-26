@@ -10,13 +10,13 @@ namespace Training.API.DatabaseLibrary
     /// <summary>The mongo database context.</summary>
     public class MongoDbContext : IDatabaseContext
     {
-        private MongoClient mongoClient;
+        private readonly MongoClient mongoClient;
 
-        private IMongoDatabase mongoDatabase;
+        private readonly IMongoDatabase mongoDatabase;
 
-        private IMongoCollection<Message> mongoMessageCollection;
+        private readonly IMongoCollection<Message> mongoMessageCollection;
 
-        private IMongoCollection<User> mongoUserCollection;
+        private readonly IMongoCollection<User> mongoUserCollection;
 
         /// <summary>Initializes a new instance of the <see cref="MongoDbContext" /> class.</summary>
         public MongoDbContext()
@@ -37,8 +37,13 @@ namespace Training.API.DatabaseLibrary
         /// </returns>
         public bool ChangePasswordForUser(User userToUpdate, string newPassword)
         {
+            if (userToUpdate is null)
+            {
+                return false;
+            }
+
             userToUpdate.Password = newPassword;
-            return this.mongoUserCollection.ReplaceOne(user => user == userToUpdate, userToUpdate).IsAcknowledged;
+            return this.mongoUserCollection.ReplaceOne(user => user.UserId == userToUpdate.UserId, userToUpdate).IsAcknowledged;
         }
 
         /// <summary>Checks the user credentials.</summary>
