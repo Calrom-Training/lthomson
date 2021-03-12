@@ -4,6 +4,7 @@
 namespace Training.API.Core.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Training.API.Core.IServices;
     using Training.API.DatabaseLibrary;
 
@@ -27,7 +28,7 @@ namespace Training.API.Core.Services
         /// <returns>
         ///   True if sucessful, false otherwise.
         /// </returns>
-        public bool Login(string username, string password)
+        public async Task<bool> Login(string username, string password)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -39,7 +40,7 @@ namespace Training.API.Core.Services
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty");
             }
 
-            var user = this.databaseContext.GetUser(username, password);
+            var user = await this.databaseContext.GetUser(username, password);
             if (user == null)
             {
                 return false;

@@ -3,6 +3,8 @@
 // </copyright>
 namespace Training.API.Core.IServices
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     ///  Password service interface.
     /// </summary>
@@ -15,6 +17,6 @@ namespace Training.API.Core.IServices
         /// <returns>
         ///  True if change password was sucessful, false otherwise.
         /// </returns>
-        bool ChangePassword(string username, string currentPassword, string newPassword);
+        Task<bool> ChangePassword(string username, string currentPassword, string newPassword);
     }
 }

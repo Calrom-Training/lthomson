@@ -5,6 +5,7 @@ namespace Training.API.Core.UnitTests
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Moq;
     using NUnit.Framework;
     using Training.API.Core.Services;
@@ -38,32 +39,34 @@ namespace Training.API.Core.UnitTests
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void GetMessagesWhenUserPresentInDatabaseTest()
+        public async Task GetMessagesWhenUserPresentInDatabaseTest()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetMessagesForUser(this.testUsername)).Returns(this.testMessages).Verifiable();
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetMessagesForUser(this.testUsername)).ReturnsAsync(this.testMessages).Verifiable();
             var sut = new MessagingService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername);
+            var result = await sut.GetMessages(this.testUsername);
 
             //// Assert
             Assert.AreEqual(this.testMessages, result);
         }
 
         /// <summary>Gets no messages when user present in database test.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void GetNoMessagesWhenUserPresentInDatabaseTest()
+        public async Task GetNoMessagesWhenUserPresentInDatabaseTestAsync()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetMessagesForUser(this.testUsername)).Returns((List<Message>)null).Verifiable();
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetMessagesForUser(this.testUsername)).ReturnsAsync((List<Message>)null).Verifiable();
             var sut = new MessagingService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername);
+            var result = await sut.GetMessages(this.testUsername);
 
             //// Assert
             Assert.IsNull(result);
@@ -79,7 +82,7 @@ namespace Training.API.Core.UnitTests
             var sut = new MessagingService(this.mockDatabaseContext.Object);
 
             //// Assert
-            Assert.Throws(typeof(ArgumentException), () => sut.GetMessages(this.testUsername));
+            Assert.ThrowsAsync(typeof(ArgumentException), () => sut.GetMessages(this.testUsername));
         }
 
         /// <summary>Post execution assertions common to all tests.</summary>

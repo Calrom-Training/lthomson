@@ -4,6 +4,7 @@
 namespace Training.API.DatabaseLibrary
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using MongoDB.Driver;
     using Training.API.DatabaseLibrary.Models;
 
@@ -35,7 +36,7 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         /// True if password change was successful, false otherwise.
         /// </returns>
-        public bool ChangePasswordForUser(User userToUpdate, string newPassword)
+        public async Task<bool> ChangePasswordForUser(User userToUpdate, string newPassword)
         {
             if (userToUpdate is null)
             {
@@ -43,7 +44,8 @@ namespace Training.API.DatabaseLibrary
             }
 
             userToUpdate.Password = newPassword;
-            return this.mongoUserCollection.ReplaceOne(user => user.UserId == userToUpdate.UserId, userToUpdate).IsAcknowledged;
+            var replaceTask = await this.mongoUserCollection.ReplaceOneAsync(user => user.UserId == userToUpdate.UserId, userToUpdate);
+            return replaceTask.IsAcknowledged;
         }
 
         /// <summary>Checks the user credentials.</summary>
@@ -52,9 +54,10 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         ///   <br />
         /// </returns>
-        public User GetUser(string username, string password)
+        public async Task<User> GetUser(string username, string password)
         {
-            return this.mongoUserCollection.Find(user => user.Username == username && user.Password == password).FirstOrDefault();
+            var findUserTask = await this.mongoUserCollection.FindAsync(user => user.Username == username && user.Password == password);
+            return findUserTask.FirstOrDefault();
         }
 
         /// <summary>Gets the messages for user.</summary>
@@ -62,9 +65,10 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         ///   <br />
         /// </returns>
-        public List<Message> GetMessagesForUser(string username)
+        public async Task<List<Message>> GetMessagesForUser(string username)
         {
-            return this.mongoMessageCollection.Find(messages => messages.SentTo == username).ToList<Message>();
+            var findMessageTask = await this.mongoMessageCollection.FindAsync(messages => messages.SentTo == username);
+            return findMessageTask.ToList();
         }
     }
 }

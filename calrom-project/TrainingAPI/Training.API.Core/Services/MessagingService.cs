@@ -5,6 +5,7 @@ namespace Training.API.Core.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Training.API.Core.IServices;
     using Training.API.DatabaseLibrary;
     using Training.API.DatabaseLibrary.Models;
@@ -26,14 +27,14 @@ namespace Training.API.Core.Services
         /// <summary>Gets the messages.</summary>
         /// <param name="username">The username.</param>
         /// <returns>A list of messages for the user.</returns>
-        public List<Message> GetMessages(string username)
+        public async Task<List<Message>> GetMessages(string username)
         {
             if (string.IsNullOrEmpty(username))
             {
                 throw new ArgumentException($"'{nameof(username)}' cannot be null or empty");
             }
 
-            return this.databaseContext.GetMessagesForUser(username);
+            return await this.databaseContext.GetMessagesForUser(username);
         }
     }
 }

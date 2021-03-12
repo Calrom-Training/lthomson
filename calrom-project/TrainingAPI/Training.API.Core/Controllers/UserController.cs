@@ -4,6 +4,7 @@
 namespace Training.API.Core.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Training.API.Core.DataContracts;
     using Training.API.Core.IServices;
@@ -31,11 +32,12 @@ namespace Training.API.Core.Controllers
         /// <param name="loginRequest">The login request.</param>
         /// <returns>True, if login is sucessful. False, otherwise.</returns>
         [HttpPost("login")]
-        public IActionResult LoginRequest([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> LoginRequest([FromBody] LoginRequest loginRequest)
         {
             try
             {
-                if (this.loginService.Login(loginRequest.Username, loginRequest.Password))
+                var loginResult = await this.loginService.Login(loginRequest.Username, loginRequest.Password);
+                if (loginResult)
                 {
                     return this.Ok();
                 }
@@ -54,11 +56,12 @@ namespace Training.API.Core.Controllers
         /// <param name="changePasswordRequest">The change password request.</param>
         /// <returns>True, on success. False, otherwise.</returns>
         [HttpPost("changepassword")]
-        public IActionResult ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
         {
             try
             {
-                if (this.passwordService.ChangePassword(changePasswordRequest.Username, changePasswordRequest.Password, changePasswordRequest.NewPassword))
+                var changePasswordResult = await this.passwordService.ChangePassword(changePasswordRequest.Username, changePasswordRequest.Password, changePasswordRequest.NewPassword);
+                if (changePasswordResult)
                 {
                     return this.Ok();
                 }

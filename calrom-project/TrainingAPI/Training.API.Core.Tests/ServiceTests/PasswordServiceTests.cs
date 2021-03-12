@@ -41,35 +41,37 @@ namespace Training.API.Core.UnitTests
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void ServiceReturnsTrueForValidCredentials()
+        public async System.Threading.Tasks.Task ServiceReturnsTrueForValidCredentialsAsync()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns(this.testUser);
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(this.testUser, this.newPassword)).Returns(true);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).ReturnsAsync(this.testUser);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(this.testUser, this.newPassword)).ReturnsAsync(true);
             var sut = new PasswordService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword);
+            var result = await sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword);
 
             //// Assert
             Assert.IsTrue(result);
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void ServiceReturnsFalseForInvalidCredentials()
+        public async System.Threading.Tasks.Task ServiceReturnsFalseForInvalidCredentialsAsync()
         {
             //// Arrange
             User notFoundUser = (User)null;
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns(notFoundUser);
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(notFoundUser, this.newPassword)).Returns(false);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).ReturnsAsync(notFoundUser);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.ChangePasswordForUser(notFoundUser, this.newPassword)).ReturnsAsync(false);
             var sut = new PasswordService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword);
+            var result = await sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword);
 
             //// Assert
             Assert.IsFalse(result);
@@ -101,7 +103,7 @@ namespace Training.API.Core.UnitTests
             var sut = new PasswordService(this.mockDatabaseContext.Object);
 
             //// Assert
-            Assert.Throws(typeof(ArgumentException), () => sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword));
+            Assert.ThrowsAsync(typeof(ArgumentException), () => sut.ChangePassword(this.testUsername, this.testPassword, this.newPassword));
         }
 
         /// <summary>Post execution assertions common to all tests.</summary>

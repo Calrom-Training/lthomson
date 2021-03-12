@@ -3,6 +3,8 @@
 // </copyright>
 namespace Training.API.Core.IServices
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     ///  Login service interface.
     /// </summary>
@@ -14,6 +16,6 @@ namespace Training.API.Core.IServices
         /// <returns>
         ///   True if sucessful, false otherwise.
         /// </returns>
-        bool Login(string username, string password);
+        Task<bool> Login(string username, string password);
     }
 }

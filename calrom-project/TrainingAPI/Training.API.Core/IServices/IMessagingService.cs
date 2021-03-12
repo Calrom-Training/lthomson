@@ -4,6 +4,7 @@
 namespace Training.API.Core.IServices
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Training.API.DatabaseLibrary.Models;
 
     /// <summary>
@@ -16,6 +17,6 @@ namespace Training.API.Core.IServices
         /// <returns>
         ///  A list of messages for the user.
         /// </returns>
-        List<Message> GetMessages(string username);
+        Task<List<Message>> GetMessages(string username);
     }
 }

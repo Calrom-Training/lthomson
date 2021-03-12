@@ -40,6 +40,7 @@ namespace Training.API.IntegrationTests
 
         private string testUser = "Dick";
 
+        /// <summary>Setups this instance.</summary>
         [SetUp]
         public void Setup()
         {
@@ -57,11 +58,12 @@ namespace Training.API.IntegrationTests
             this.expectedMessages = new Message(new System.Guid("0cc66d1a-5948-4dc7-9594-456ce37ef07b"), "Hi Dick!", DateTime.Parse("2021-01-15T00:00:00Z"), "This is a test message", "Tom", "Dick");
         }
 
+        /// <summary>Messageses the returned if exists asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void MessagesReturnedIfExists()
+        public async System.Threading.Tasks.Task MessagesReturnedIfExistsAsync()
         {
-            var result = this.messagesController.GetMessages(this.testUser) as OkObjectResult;
+            var result = await this.messagesController.GetMessages(this.testUser) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
             var messages = result.Value as List<Message>;
@@ -70,61 +72,60 @@ namespace Training.API.IntegrationTests
             Assert.AreEqual(expectedMessages.MessageId, messages[0].MessageId);
         }
 
+        /// <summary>Messages not returned if none exist asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void MessagesNotReturnedIfNoneExist()
+        public async System.Threading.Tasks.Task MessagesNotReturnedIfNoneExistAsync()
         {
-            var result = this.messagesController.GetMessages("Tom") as OkObjectResult;
+            var result = await this.messagesController.GetMessages("Tom") as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
             var messages = result.Value as List<Message>;
             Assert.IsEmpty(messages);
         }
 
+        /// <summary>User the can login with valid credentials asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void UserCanloginWithValidCredentials()
+        public async System.Threading.Tasks.Task UserCanloginWithValidCredentialsAsync()
         {
-            var result = this.userController.LoginRequest(this.validLoginRequest) as OkResult;
+            var result = await this.userController.LoginRequest(this.validLoginRequest) as OkResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
         }
 
+        /// <summary>User can change password with valid credentials asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void UserCanChangePasswordWithValidCredentials()
+        public async System.Threading.Tasks.Task UserCanChangePasswordWithValidCredentialsAsync()
         {
-            var result = this.userController.ChangePassword(this.validChangePasswordRequest) as OkResult;
+            var result = await this.userController.ChangePassword(this.validChangePasswordRequest) as OkResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
-            result = this.userController.LoginRequest(new LoginRequest(this.validChangePasswordRequest.Username, this.validChangePasswordRequest.NewPassword)) as OkResult;
+            result = await this.userController.LoginRequest(new LoginRequest(this.validChangePasswordRequest.Username, this.validChangePasswordRequest.NewPassword)) as OkResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
             var changePasswordBackRequest = new ChangePasswordRequest(this.validChangePasswordRequest.Username, this.validChangePasswordRequest.NewPassword, this.validChangePasswordRequest.Password);
-            this.userController.ChangePassword(changePasswordBackRequest);
+            await this.userController.ChangePassword(changePasswordBackRequest);
         }
 
+        /// <summary>User cannot change password with invalid credentials asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void UserCannotChangePasswordWithInvalidCredentials()
+        public async System.Threading.Tasks.Task UserCannotChangePasswordWithInvalidCredentialsAsync()
         {
-            var result = this.userController.ChangePassword(this.invalidChangePasswordRequest) as ForbidResult;
+            var result = await this.userController.ChangePassword(this.invalidChangePasswordRequest) as ForbidResult;
             Assert.IsNotNull(result);
         }
 
 
+        /// <summary>Users the cannot login with invalid credentials asynchronous.</summary>
         [Test]
         [Category("DockerIntegrationTest")]
-        public void UserCannotloginWithInvalidCredentials()
+        public async System.Threading.Tasks.Task UserCannotloginWithInvalidCredentialsAsync()
         {
-            var result = this.userController.LoginRequest(this.invalidLoginRequest) as ForbidResult;
+            var result = await this.userController.LoginRequest(this.invalidLoginRequest) as ForbidResult;
             Assert.IsNotNull(result);
-        }
-
-        [TearDown]
-        public void PostExecution()
-        {
-
         }
     }
 }

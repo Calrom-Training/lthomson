@@ -5,6 +5,7 @@ namespace Training.API.Core.UnitTests
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Moq;
     using NUnit.Framework;
@@ -36,17 +37,18 @@ namespace Training.API.Core.UnitTests
                     "Harry Test"));
         }
 
-        /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <summary>Gets the messages when user present test.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void GetMessagesWhenUserPresentTest()
+        public async Task GetMessagesWhenUserPresentTest()
         {
             //// Arrange
-            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns(this.testMessages).Verifiable();
+            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).ReturnsAsync(this.testMessages).Verifiable();
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername) as OkObjectResult;
+            var result = await sut.GetMessages(this.testUsername) as OkObjectResult;
 
             //// Assert
             Assert.IsNotNull(result);
@@ -55,16 +57,17 @@ namespace Training.API.Core.UnitTests
         }
 
         /// <summary>Tests an OK response is still returned when no messages are found.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void NoMessagesForUserTest()
+        public async Task NoMessagesForUserTest()
         {
             //// Arrange
-            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns((List<Message>)null).Verifiable();
+            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).ReturnsAsync((List<Message>)null).Verifiable();
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername) as OkObjectResult;
+            var result = await sut.GetMessages(this.testUsername) as OkObjectResult;
 
             //// Assert
             Assert.IsNull(result.Value);
@@ -72,9 +75,10 @@ namespace Training.API.Core.UnitTests
         }
 
         /// <summary>Tests an error is thrown when the user supplied is empty.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void EmptyParameterTest()
+        public async Task EmptyParameterTest()
         {
             //// Arrange
             this.testUsername = string.Empty;
@@ -82,28 +86,11 @@ namespace Training.API.Core.UnitTests
             var sut = new MessagesController(this.mockMessagingService.Object);
 
             //// Act
-            var result = sut.GetMessages(this.testUsername) as ObjectResult;
+            var result = await sut.GetMessages(this.testUsername) as ObjectResult;
 
             //// Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(500, result.StatusCode);
-        }
-
-        /// <summary>Tests the user cannot get messages for an invalid user.</summary>
-        [Test]
-        [Category("MockTest")]
-        public void GetMessagesWhenUserNotPresentTest()
-        {
-            //// Arrange
-            this.mockMessagingService.Setup(messagingService => messagingService.GetMessages(this.testUsername)).Returns<List<Message>>(null).Verifiable();
-            var sut = new MessagesController(this.mockMessagingService.Object);
-
-            //// Act
-            var result = sut.GetMessages(this.testUsername) as OkObjectResult;
-
-            //// Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(200, result.StatusCode);
         }
 
         /// <summary>Post execution assertions common to all tests.</summary>

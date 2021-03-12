@@ -4,6 +4,7 @@
 namespace Training.API.Core.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Training.API.Core.IServices;
 
@@ -27,11 +28,11 @@ namespace Training.API.Core.Controllers
         /// <param name="username">The username.</param>
         /// <returns>List of messages for the user.</returns>
         [HttpGet("getMessagesForUser")]
-        public IActionResult GetMessages(string username)
+        public async Task<IActionResult> GetMessages(string username)
         {
             try
             {
-                var response = this.messageService.GetMessages(username);
+                var response = await this.messageService.GetMessages(username);
                 return this.Ok(response);
             }
             catch (Exception ex)

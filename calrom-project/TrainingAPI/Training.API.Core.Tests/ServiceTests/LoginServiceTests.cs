@@ -4,6 +4,7 @@
 namespace Training.API.Core.UnitTests
 {
     using System;
+    using System.Threading.Tasks;
     using Moq;
     using NUnit.Framework;
     using Training.API.Core.Services;
@@ -36,32 +37,34 @@ namespace Training.API.Core.UnitTests
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void ServiceReturnsTrueForValidCredentials()
+        public async Task ServiceReturnsTrueForValidCredentials()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns(this.testUser);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).ReturnsAsync(this.testUser);
             var sut = new LoginService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.Login(this.testUsername, this.testPassword);
+            var result = await sut.Login(this.testUsername, this.testPassword);
 
             //// Assert
             Assert.IsTrue(result);
         }
 
         /// <summary>Tests the user can get messages for a valid user.</summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
         [Category("MockTest")]
-        public void ServiceReturnsFalseForInvalidCredentials()
+        public async Task ServiceReturnsFalseForInvalidCredentials()
         {
             //// Arrange
-            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).Returns((User)null);
+            this.mockDatabaseContext.Setup(databaseContext => databaseContext.GetUser(this.testUsername, this.testPassword)).ReturnsAsync((User)null);
             var sut = new LoginService(this.mockDatabaseContext.Object);
 
             //// Act
-            var result = sut.Login(this.testUsername, this.testPassword);
+            var result = await sut.Login(this.testUsername, this.testPassword);
 
             //// Assert
             Assert.IsFalse(result);
@@ -89,7 +92,7 @@ namespace Training.API.Core.UnitTests
             var sut = new LoginService(this.mockDatabaseContext.Object);
 
             //// Assert
-            Assert.Throws(typeof(ArgumentException), () => sut.Login(this.testUsername, this.testPassword));
+            Assert.ThrowsAsync(typeof(ArgumentException), () => sut.Login(this.testUsername, this.testPassword));
         }
 
         /// <summary>Post execution assertions common to all tests.</summary>

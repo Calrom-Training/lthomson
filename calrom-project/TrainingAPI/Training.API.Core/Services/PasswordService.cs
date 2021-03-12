@@ -4,6 +4,7 @@
 namespace Training.API.Core.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Training.API.Core.IServices;
     using Training.API.DatabaseLibrary;
 
@@ -26,7 +27,7 @@ namespace Training.API.Core.Services
         /// <param name="currentPassword">Current password.</param>
         /// <param name="newPassword">New password to change to.</param>
         /// <returns>True if sucessful, false otherwise.</returns>
-        public bool ChangePassword(string username, string currentPassword, string newPassword)
+        public async Task<bool> ChangePassword(string username, string currentPassword, string newPassword)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -43,8 +44,8 @@ namespace Training.API.Core.Services
                 throw new ArgumentException($"'{nameof(newPassword)}' cannot be null or empty", nameof(newPassword));
             }
 
-            var user = this.databaseContext.GetUser(username, currentPassword);
-            return this.databaseContext.ChangePasswordForUser(user, newPassword);
+            var user = await this.databaseContext.GetUser(username, currentPassword);
+            return await this.databaseContext.ChangePasswordForUser(user, newPassword);
         }
     }
 }

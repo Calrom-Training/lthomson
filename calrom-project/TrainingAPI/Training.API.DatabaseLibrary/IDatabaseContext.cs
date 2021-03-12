@@ -4,6 +4,7 @@
 namespace Training.API.DatabaseLibrary
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Training.API.DatabaseLibrary.Models;
 
     /// <summary>Database context interface.</summary>
@@ -15,14 +16,14 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         ///   User matching the credentials.
         /// </returns>
-        User GetUser(string username, string password);
+        Task<User> GetUser(string username, string password);
 
         /// <summary>Gets the messages for user.</summary>
         /// <param name="username">The username.</param>
         /// <returns>
         ///   List of messages for the user.
         /// </returns>
-        List<Message> GetMessagesForUser(string username);
+        Task<List<Message>> GetMessagesForUser(string username);
 
         /// <summary>Changes the password for user.</summary>
         /// <param name="user">The user.</param>
@@ -30,6 +31,6 @@ namespace Training.API.DatabaseLibrary
         /// <returns>
         ///   True if password was changed succesfully, false otherwise.
         /// </returns>
-        bool ChangePasswordForUser(User user, string newPassword);
+        Task<bool> ChangePasswordForUser(User user, string newPassword);
     }
 }
